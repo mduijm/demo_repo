@@ -51,7 +51,7 @@ jobs:
           tags: xxradar/app:${{ github.run_id }}
 
   DAST:
-   needs: SAST
+   needs: docker
    runs-on: ubuntu-latest
    steps:
    - uses: actions/checkout@v2
