@@ -18,17 +18,18 @@ jobs:
      run:  curl http://127.0.0.1:8081
      
   scanning:
-   needs: testing
+   needs: SAST
    runs-on: ubuntu-latest
    steps:
    - uses: actions/checkout@v2
    - name: SAST
      run: |
+      copy fdevsec_sast.yaml fdevsec.yaml
       docker pull registry.fortidevsec.forticloud.com/fdevsec_sast:latest
       docker run -i --mount type=bind,source="$(pwd)",target=/scan  registry.fortidevsec.forticloud.com/fdevsec_sast:latest
 
   docker:
-    needs: testing
+    needs: SAST
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
