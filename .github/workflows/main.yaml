@@ -60,7 +60,7 @@ jobs:
       cp fdevsec_dast.yaml fdevsec.yaml
       docker network create devsecnet
       docker pull registry.fortidevsec.forticloud.com/fdevsec_sast:latest
-      docker run -id --net devsecnet -p 8081:8081 --name testapp xxradar/app:${{ github.run_id }}
+      docker run -id -p 8081:8081 --name testapp xxradar/app:${{ github.run_id }}
       IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' testapp)
       sed 's/testapp/'$IP'/g' fdevsec_dast.yaml> fdevsec.yaml
       cat fdevsec.yaml
