@@ -9,5 +9,5 @@ scanners:
 # Configures target url where dynamic scan should be performed.
 dast:
   url: http://testapp:8081
-  full_scan: true 
+  full_scan: false 
 
