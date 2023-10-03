@@ -62,14 +62,6 @@ jobs:
       docker pull registry.fortidevsec.forticloud.com/fdevsec_sast:latest
       docker run -id --net devsecnet -p 8081:8081 --name testapp xxradar/app:${{ github.run_id }}
       IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' testapp)
-      cat >fdevsectt.yaml <<EOF
-        id:
-          org: 506202ab-209a-49d9-aaa3-59ea554452df
-          app: 6035e8c5-bedd-4ec4-8f4a-4281b962ab91
-        scanners:
-          - dast
-        dast:
-          url: http://$IP:8081
-         full_scan: false
-      EOF
-      docker run -i --net devsecnet --mount type=bind,source="$(pwd)",target=/scan  registry.fortidevsec.forticloud.com/fdevsec_dast:latest
+      sed 's/testapp/'$IP'/g' fdevsec_dast.yaml> fdevsec_dast.yaml
+      cat fdevsec_dast.yaml
+      # docker run -i --mount type=bind,source="$(pwd)",target=/scan  registry.fortidevsec.forticloud.com/fdevsec_dast:latest
