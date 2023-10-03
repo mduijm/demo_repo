@@ -18,7 +18,7 @@ jobs:
      run:  curl http://127.0.0.1:8081
      
   SAST:
-   needs: testing
+   needs: DAST
    runs-on: ubuntu-latest
    steps:
    - uses: actions/checkout@v2
@@ -29,7 +29,7 @@ jobs:
       docker run -i --mount type=bind,source="$(pwd)",target=/scan  registry.fortidevsec.forticloud.com/fdevsec_sast:latest
 
   docker:
-    needs: SAST
+    needs: testing
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -60,5 +60,5 @@ jobs:
       cp fdevsec_dast.yaml fdevsec.yaml
       docker network create devsecnet
       docker pull registry.fortidevsec.forticloud.com/fdevsec_sast:latest
-      docker run -i --net devsecnet -p 8082:8081 --name testapp xxradar/app:${{ github.run_id }}
+      docker run -i --net devsecnet -p 8081:8081 --name testapp xxradar/app:${{ github.run_id }}
       docker run -i --net devsecnet --mount type=bind,source="$(pwd)",target=/scan  registry.fortidevsec.forticloud.com/fdevsec_sast:latest
