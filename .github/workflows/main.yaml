@@ -60,5 +60,5 @@ jobs:
       cp fdevsec_dast.yaml fdevsec.yaml
       docker network create devsecnet
       docker pull registry.fortidevsec.forticloud.com/fdevsec_sast:latest
-      docker run -i --net devsecnet -p 8081:8081 --name testapp xxradar/app:${{ github.run_id }}
+      docker run -id --net devsecnet -p 8081:8081 --name testapp xxradar/app:${{ github.run_id }}
       docker run -i --net devsecnet --mount type=bind,source="$(pwd)",target=/scan  registry.fortidevsec.forticloud.com/fdevsec_sast:latest
