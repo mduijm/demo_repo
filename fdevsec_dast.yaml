@@ -4,7 +4,7 @@ id:
 
 # If below settings are not configured, scans will be performed for all supported scanners.
 scanners:
-   - dast
+  - dast
 
 # Configures target url where dynamic scan should be performed.
 dast:
