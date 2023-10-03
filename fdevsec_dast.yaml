@@ -1,0 +1,13 @@
+id:
+  org: 506202ab-209a-49d9-aaa3-59ea554452df
+  app: cc543e41-7543-4da8-9608-a55d7877b192
+
+# If below settings are not configured, scans will be performed for all supported scanners.
+scanners:
+   - dast
+
+# Configures target url where dynamic scan should be performed.
+dast:
+  url: http://testapp:8081
+  full_scan: true 
+
